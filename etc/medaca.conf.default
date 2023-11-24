@@ -1,0 +1,17 @@
+SyslogFacility=local1
+DBtype=LDAP
+LdapServer=127.0.0.1
+LdapPort=389
+LdapBindDn=cn=Manager,dc=designet,dc=jp
+LdapBindPw=secret
+LdapBaseDn=ou=calendar,dc=designet,dc=jp
+AutoResourceCreate=1
+AutoCreateCollectionName=home
+
+AuthLdap=0
+AuthLdapServer=192.168.2.34
+AuthLdapPort=389
+AuthLdapBindDn=cn=Manager,dc=test,dc=designet,dc=jp
+AuthLdapBindPw=secret
+AuthLdapBaseDn=ou=test.designet.jp,dc=test,dc=designet,dc=jp
+AuthLdapFilter=(uid=%s)

@@ -1,0 +1,103 @@
+#
+# designet Calendar Resource directory schema
+#
+#
+# Attribute Type Definitions
+#
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.2.1 NAME 'resource'
+	DESC 'resource name'
+	EQUALITY caseExactIA5Match
+	SUBSTR caseExactIA5SubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{20}
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.2.2 NAME 'collectionCount' 
+	DESC 'collection count'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.2.3 NAME 'collectionNumMax' 
+	DESC 'collection max number'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.2.4 NAME 'calendarAdminU'
+	DESC 'calendar admin user name'
+	EQUALITY caseExactIA5Match
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{20} )
+
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.1 NAME 'collection' 
+	DESC 'collection name'
+	EQUALITY caseExactIA5Match
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{20}
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.2 NAME 'collectionActive' 
+	DESC 'active flag   1:enable  0:disable'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{20}
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.3 NAME 'authorityDefault' 
+	DESC 'authority default 0:readonly 1:readwrite 2:disable'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{20}
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.4 NAME 'authorityOrder' 
+	DESC 'user authority order'
+	EQUALITY caseIgnoreIA5Match
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.5 NAME 'authorityArticle' 
+	DESC 'user authority article 0:readonly 1:readwrite 2:disable'
+	EQUALITY caseExactIA5Match
+	SUBSTR caseExactIA5SubstringsMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.6 NAME 'calendarCTag' 
+	DESC 'Calendar Collection Entity Tag'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.7 NAME 'collectionNumber' 
+	DESC 'collection number for collection'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.3.8 NAME 'collectionDescription' 
+	DESC 'collection description'
+	EQUALITY caseIgnoreMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.4.1 NAME 'calObjectUri' 
+	DESC 'calendar data objectUri'
+	EQUALITY caseExactIA5Match
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.4.2 NAME 'calData' 
+	DESC 'calendar data'
+	EQUALITY caseIgnoreMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+	SINGLE-VALUE )
+attributetype ( 1.3.6.1.4.1.15774.1.24.1.4.3 NAME 'calTime' 
+	DESC 'calendar time'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+	SINGLE-VALUE )
+
+#
+# Object Class Definitions
+#
+objectclass ( 1.3.6.1.4.1.15774.1.24.1.1.1 NAME 'calendarResource'
+	DESC 'calendar resource'
+	STRUCTURAL
+	MUST ( resource $ collectionCount $ collectionNumMax )
+	MAY ( calendarAdminU ) )
+
+objectclass ( 1.3.6.1.4.1.15774.1.24.1.1.2 NAME 'calendarCollection'
+	DESC 'calendar collection'
+	STRUCTURAL
+	MUST ( collection $ collectionActive $ authorityDefault $ calendarCTag $ collectionNumber $ collectionDescription )
+	MAY ( authorityOrder $ authorityArticle ) )
+
+objectclass ( 1.3.6.1.4.1.15774.1.24.1.1.3 NAME 'calendarData'
+	DESC 'calendar data'
+	STRUCTURAL
+	MUST ( calObjectUri $ calData $ calTime ) )
